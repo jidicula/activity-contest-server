@@ -4,6 +4,8 @@
 *.dll
 *.so
 *.dylib
+activity-contest-server
+db.sqlite3
 
 # Test binary, built with `go test -c`
 *.test
