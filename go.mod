@@ -1,3 +1,3 @@
-module github.com/jidicula/template-go
+module github.com/jidicula/activity-contest-server
 
 go 1.16
