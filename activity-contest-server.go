@@ -9,10 +9,16 @@ import (
 
 type Contest struct {
 	gorm.Model
-	StartDate time.Time
-	EndDate   time.Time
-	Users     []User
-	Score     uint
+	StartDate      time.Time
+	EndDate        time.Time
+	Users          []User
+	ContestEntries []ContestEntry
+}
+
+type ContestEntry struct {
+	gorm.Model
+	User  User
+	Score uint
 }
 
 type User struct {
@@ -45,11 +51,28 @@ func main() {
 		Password:          "password",
 		ActivitySummaries: []ActivitySummary{as},
 	}
-	c := Contest{
-		StartDate: time.Now(),
-		EndDate:   time.Now().Add(time.Hour * 24 * 7),
-		Users:     []User{u},
-		Score:     u.ActivitySummaries[0].score(),
+	ce := ContestEntry{
+		User:  u,
+		Score: as.score(),
 	}
-	fmt.Printf("ActivitySummary:\n  %+v\n\nUser:\n  %+v\n\nContest:\n  %+v\n", as, u, c)
+	c := Contest{
+		StartDate:      time.Now(),
+		EndDate:        time.Now().Add(time.Hour * 24 * 7),
+		Users:          []User{u},
+		ContestEntries: []ContestEntry{ce},
+	}
+	fmt.Printf(
+		`ActivitySummary:
+  %+v
+
+User:
+  %+v
+
+ContestEntry:
+  %+v
+
+Contest:
+  %+v
+`,
+		as, u, ce, c)
 }
