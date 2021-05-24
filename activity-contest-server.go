@@ -7,71 +7,71 @@ import (
 	"gorm.io/gorm"
 )
 
-type Contest struct {
+type contest struct {
 	gorm.Model
-	StartDate      time.Time
-	EndDate        time.Time
-	InProgress     bool
-	ContestEntries []ContestEntry
+	startDate      time.Time
+	endDate        time.Time
+	inProgress     bool
+	contestEntries []contestEntry
 }
 
-type ContestEntry struct {
+type contestEntry struct {
 	gorm.Model
-	User  User
-	Score uint
+	user  user
+	score uint
 }
 
-type User struct {
+type user struct {
 	gorm.Model
-	Username          string `gorm:"unique"`
-	Password          string
-	ActivitySummaries []ActivitySummary
+	username          string `gorm:"unique"`
+	password          string
+	activitySummaries []activitySummary
 }
 
-type ActivitySummary struct {
+type activitySummary struct {
 	gorm.Model
-	MovePercent     uint
-	ExercisePercent uint
-	StandPercent    uint
+	movePercent     uint
+	exercisePercent uint
+	standPercent    uint
 }
 
 // score computes the score from an ActivitySummary.
-func (as ActivitySummary) score() uint {
-	return as.MovePercent + as.ExercisePercent + as.StandPercent
+func (as activitySummary) score() uint {
+	return as.movePercent + as.exercisePercent + as.standPercent
 }
 
 func main() {
-	as := ActivitySummary{
-		MovePercent:     100,
-		ExercisePercent: 30,
-		StandPercent:    10,
+	as := activitySummary{
+		movePercent:     100,
+		exercisePercent: 30,
+		standPercent:    10,
 	}
-	u := User{
-		Username:          "test",
-		Password:          "password",
-		ActivitySummaries: []ActivitySummary{as},
+	u := user{
+		username:          "test",
+		password:          "password",
+		activitySummaries: []activitySummary{as},
 	}
-	ce := ContestEntry{
-		User:  u,
-		Score: as.score(),
+	ce := contestEntry{
+		user:  u,
+		score: as.score(),
 	}
-	c := Contest{
-		StartDate:      time.Now(),
-		EndDate:        time.Now().Add(time.Hour * 24 * 7),
-		InProgress:     true,
-		ContestEntries: []ContestEntry{ce},
+	c := contest{
+		startDate:      time.Now(),
+		endDate:        time.Now().Add(time.Hour * 24 * 7),
+		inProgress:     true,
+		contestEntries: []contestEntry{ce},
 	}
 	fmt.Printf(
-		`ActivitySummary:
+		`activitySummary:
   %+v
 
-User:
+user:
   %+v
 
-ContestEntry:
+contestEntry:
   %+v
 
-Contest:
+contest:
   %+v
 `,
 		as, u, ce, c)

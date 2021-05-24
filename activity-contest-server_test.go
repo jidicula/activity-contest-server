@@ -20,10 +20,10 @@ func TestActivitySummaryScore(t *testing.T) {
 
 	for name, tt := range tests {
 		t.Run(name, func(t *testing.T) {
-			as := ActivitySummary{
-				MovePercent:     tt.MovePercent,
-				ExercisePercent: tt.ExercisePercent,
-				StandPercent:    tt.StandPercent,
+			as := activitySummary{
+				movePercent:     tt.MovePercent,
+				exercisePercent: tt.ExercisePercent,
+				standPercent:    tt.StandPercent,
 			}
 			got := as.score()
 			if got != tt.want {
