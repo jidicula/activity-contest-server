@@ -7,12 +7,12 @@ import (
 	"gorm.io/gorm"
 )
 
-type Contest struct {
+type contest struct {
 	gorm.Model
-	StartDate      time.Time
-	EndDate        time.Time
-	InProgress     bool
-	ContestEntries []ContestEntry
+	startDate      time.Time
+	endDate        time.Time
+	inProgress     bool
+	contestEntries []ContestEntry
 }
 
 type ContestEntry struct {
@@ -55,11 +55,11 @@ func main() {
 		User:  u,
 		Score: as.score(),
 	}
-	c := Contest{
-		StartDate:      time.Now(),
-		EndDate:        time.Now().Add(time.Hour * 24 * 7),
-		InProgress:     true,
-		ContestEntries: []ContestEntry{ce},
+	c := contest{
+		startDate:      time.Now(),
+		endDate:        time.Now().Add(time.Hour * 24 * 7),
+		inProgress:     true,
+		contestEntries: []ContestEntry{ce},
 	}
 	fmt.Printf(
 		`ActivitySummary:
@@ -71,7 +71,7 @@ User:
 ContestEntry:
   %+v
 
-Contest:
+contest:
   %+v
 `,
 		as, u, ce, c)
