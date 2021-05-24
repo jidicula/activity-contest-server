@@ -12,13 +12,13 @@ type contest struct {
 	startDate      time.Time
 	endDate        time.Time
 	inProgress     bool
-	contestEntries []ContestEntry
+	contestEntries []contestEntry
 }
 
-type ContestEntry struct {
+type contestEntry struct {
 	gorm.Model
-	User  User
-	Score uint
+	user  User
+	score uint
 }
 
 type User struct {
@@ -51,15 +51,15 @@ func main() {
 		Password:          "password",
 		ActivitySummaries: []ActivitySummary{as},
 	}
-	ce := ContestEntry{
-		User:  u,
-		Score: as.score(),
+	ce := contestEntry{
+		user:  u,
+		score: as.score(),
 	}
 	c := contest{
 		startDate:      time.Now(),
 		endDate:        time.Now().Add(time.Hour * 24 * 7),
 		inProgress:     true,
-		contestEntries: []ContestEntry{ce},
+		contestEntries: []contestEntry{ce},
 	}
 	fmt.Printf(
 		`ActivitySummary:
@@ -68,7 +68,7 @@ func main() {
 User:
   %+v
 
-ContestEntry:
+contestEntry:
   %+v
 
 contest:
