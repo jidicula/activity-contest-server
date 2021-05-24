@@ -25,31 +25,31 @@ type user struct {
 	gorm.Model
 	username          string `gorm:"unique"`
 	password          string
-	activitySummaries []ActivitySummary
+	activitySummaries []activitySummary
 }
 
-type ActivitySummary struct {
+type activitySummary struct {
 	gorm.Model
-	MovePercent     uint
-	ExercisePercent uint
-	StandPercent    uint
+	movePercent     uint
+	exercisePercent uint
+	standPercent    uint
 }
 
 // score computes the score from an ActivitySummary.
-func (as ActivitySummary) score() uint {
-	return as.MovePercent + as.ExercisePercent + as.StandPercent
+func (as activitySummary) score() uint {
+	return as.movePercent + as.exercisePercent + as.standPercent
 }
 
 func main() {
-	as := ActivitySummary{
-		MovePercent:     100,
-		ExercisePercent: 30,
-		StandPercent:    10,
+	as := activitySummary{
+		movePercent:     100,
+		exercisePercent: 30,
+		standPercent:    10,
 	}
 	u := user{
 		username:          "test",
 		password:          "password",
-		activitySummaries: []ActivitySummary{as},
+		activitySummaries: []activitySummary{as},
 	}
 	ce := contestEntry{
 		user:  u,
@@ -62,7 +62,7 @@ func main() {
 		contestEntries: []contestEntry{ce},
 	}
 	fmt.Printf(
-		`ActivitySummary:
+		`activitySummary:
   %+v
 
 user:
