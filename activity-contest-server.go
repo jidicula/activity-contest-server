@@ -35,7 +35,7 @@ type ActivitySummary struct {
 	StandPercent    uint
 }
 
-// score computes the score of an ActivitySummary.
+// score computes the score from an ActivitySummary.
 func (as ActivitySummary) score() uint {
 	return as.MovePercent + as.ExercisePercent + as.StandPercent
 }
