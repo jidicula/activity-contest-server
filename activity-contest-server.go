@@ -17,15 +17,15 @@ type contest struct {
 
 type contestEntry struct {
 	gorm.Model
-	user  User
+	user  user
 	score uint
 }
 
-type User struct {
+type user struct {
 	gorm.Model
-	Username          string `gorm:"unique"`
-	Password          string
-	ActivitySummaries []ActivitySummary
+	username          string `gorm:"unique"`
+	password          string
+	activitySummaries []ActivitySummary
 }
 
 type ActivitySummary struct {
@@ -46,10 +46,10 @@ func main() {
 		ExercisePercent: 30,
 		StandPercent:    10,
 	}
-	u := User{
-		Username:          "test",
-		Password:          "password",
-		ActivitySummaries: []ActivitySummary{as},
+	u := user{
+		username:          "test",
+		password:          "password",
+		activitySummaries: []ActivitySummary{as},
 	}
 	ce := contestEntry{
 		user:  u,
@@ -65,7 +65,7 @@ func main() {
 		`ActivitySummary:
   %+v
 
-User:
+user:
   %+v
 
 contestEntry:
