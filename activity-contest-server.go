@@ -11,7 +11,7 @@ type Contest struct {
 	gorm.Model
 	StartDate      time.Time
 	EndDate        time.Time
-	Users          []User
+	InProgress     bool
 	ContestEntries []ContestEntry
 }
 
@@ -35,7 +35,7 @@ type ActivitySummary struct {
 	StandPercent    uint
 }
 
-// score computes the score of an ActivitySummary.
+// score computes the score from an ActivitySummary.
 func (as ActivitySummary) score() uint {
 	return as.MovePercent + as.ExercisePercent + as.StandPercent
 }
@@ -58,7 +58,7 @@ func main() {
 	c := Contest{
 		StartDate:      time.Now(),
 		EndDate:        time.Now().Add(time.Hour * 24 * 7),
-		Users:          []User{u},
+		InProgress:     true,
 		ContestEntries: []ContestEntry{ce},
 	}
 	fmt.Printf(
